@@ -5,7 +5,7 @@
 #include<unistd.h>
 
 void func(){
-	printf("atexit!\n");
+	puts("atexit!\n");
 	return;
 }
 
