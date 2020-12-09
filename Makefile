@@ -1,9 +1,16 @@
 CC = gcc
-CFLAGS = -o
+CFLAGS = -c
+TARGET = l1
+SOURCES = lab1.c
+OBJECTS = $(SOURCES:.c=.o)
 
-all : l1
+
+all : $(TARGET)
 	./l1
 
-l1 :
-	$(CC) lab1.c $(CFLAGS) l1
-
+$(TARGET) : $(OBJECTS)
+	$(CC) $(SOURCES) -o $@
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
+clean :
+	rm -rf *.o $(TARGET)

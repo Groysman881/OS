@@ -5,7 +5,7 @@
 #include<unistd.h>
 
 void func(){
-	puts("atexit!\n");
+	puts("atexit\n");
 	return;
 }
 
@@ -13,8 +13,8 @@ int main(int argc,char* argv[]){
 	pid_t procID;
         procID = fork();
 	int exFunc = atexit(func);
-	if(exFunc == 0){
-	
+	if(exFunc != 0){
+		write(2,"Error",7);	
 	}
 	if(procID > 0){
 		wait(NULL);
