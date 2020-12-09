@@ -5,14 +5,14 @@
 #include<unistd.h>
 
 void func(){
-	puts("atexit\n");
+	printf("atexit in proccess with pid = %d\n",getpid());
 	return;
 }
 
 int main(int argc,char* argv[]){
 	pid_t procID;
-        procID = fork();
 	int exFunc = atexit(func);
+        procID = fork();
 	if(exFunc != 0){
 		write(2,"Error",7);	
 	}
