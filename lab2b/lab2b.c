@@ -7,7 +7,7 @@
 #include<fcntl.h>
 
 int main(int argc,char* argv[]){
-	int r_fd,w_fd;
+	int fd;
 	time_t start = time(NULL);
 	int startTime = gmtime(&start)->tm_sec;
 	pid_t procID;
@@ -23,34 +23,36 @@ int main(int argc,char* argv[]){
 		exit(-1);
 	}
 	if(procID > 0){
-                int pData[2];
+                int pData[4];
                 pData[0] = getpid();
                 time_t pt = time(NULL);
-                pData[1] = gmtime(&pt)->tm_sec;
-                w_fd = open("./file",O_WRONLY);
-                if(w_fd < 0){
+                pData[1] = gmtime(&pt)->tm_hour;
+		pData[2] = gmtime(&pt)->tm_min;
+		pData[3] = gmtime(&pt)->tm_sec;
+                fd = open("./file",O_WRONLY);
+                if(fd < 0){
                         perror("open fifo for write");
                         exit(-1);
                 }
 
-                write(w_fd,pData,sizeof(pData));
-                close(w_fd);
+                write(fd,pData,sizeof(pData));
+                close(fd);
                 exit(0);
 	}
 	else{
 		sleep(5);
-		int cData[2];
+		int cData[4];
                 time_t ct = time(NULL);
-                r_fd = open("./file",O_RDONLY);
-                if(r_fd < 0){
+                fd = open("./file",O_RDONLY);
+                if(fd < 0){
                         perror("open fifo for read");
                         exit(-1);
                 }
-                if(read(r_fd,cData,sizeof(cData)) > 0){
+                if(read(fd,cData,sizeof(cData)) > 0){
                         time_t ct = time(NULL);
-                        printf("Child process with time = %d gets data from Parent process with pid = %d and with time = %d\n",gmtime(&ct)->tm_sec - startTime,cData[0],cData[1] - startTime);
+                        printf("Child process with time = %d : %d : %d gets data from Parent process with pid = %d and with time = %d : %d : %d\n",gmtime(&ct)->tm_hour,gmtime(&ct)->tm_min,gmtime(&ct)->tm_sec,cData[0],cData[1],cData[2],cData[3]);
                 }
-                close(r_fd);
+                close(fd);
                 exit(0);
 	}
 	return 0;
