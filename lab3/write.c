@@ -19,7 +19,7 @@ int main(int argc,char* argv[]){
 	signal(SIGINT,stop);
 	pid_t pid = getpid();
 	int fd;
-	time_t t = time(NULL);
+	time_t t;
 	key = ftok("./shmemory",'a');
 	if(key == -1){
 		perror("ftok");
@@ -40,6 +40,7 @@ int main(int argc,char* argv[]){
 		exit(0);
 	}
 	while(1){
+		t = time(NULL);
 		sprintf(data,"1pid = %d, time = %d : %d : %d",pid,gmtime(&t)->tm_hour,gmtime(&t)->tm_min,gmtime(&t)->tm_sec);
 		sleep(1);
 	}
