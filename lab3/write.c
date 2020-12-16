@@ -21,7 +21,7 @@ int main(int argc,char* argv[]){
 	int fd;
 	time_t t = time(NULL);
 	key = ftok("./shmemory",'a');
-	if((key == -1)){
+	if(key == -1){
 		perror("ftok");
 		exit(-1);
 	}
