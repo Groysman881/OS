@@ -16,14 +16,6 @@ struct sembuf p = {0,-1,0};
 char* data;
 int sid,fd;
 
-union semun {
-      int val;                  /* value for SETVAL */
-      struct semid_ds *buf;     /* buffer for IPC_STAT, IPC_SET */
-      unsigned short *array;    /* array for GETALL, SETALL */
-                                /* Linux specific part: */
-      struct seminfo *__buf;    /* buffer for IPC_INFO */
-};
-
 void stop(int signal){
 	printf("\n");
 	if(semctl(sid,0,IPC_RMID) == -1){
