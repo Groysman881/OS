@@ -50,11 +50,12 @@ int main(int argc,char* argv[]){
 		}
                 t = time(NULL);
                 printf("time of reading process = %d : %d : %d info about writing process: %s\n",gmtime(&t)->tm_hour,gmtime(&t)->tm_min,gmtime(&t)->tm_sec,data+1);
-                sleep(1);
+                //sleep(1);
 		if(semop(sid,&v,1) == -1){
 			perror("semop");
 			exit(-1);
 		}
+		sleep(1);
         }
 
         return 0;
