@@ -6,7 +6,7 @@ OBJECTS = $(SOURCES:.c=.o)
 
 
 $(TARGET) : $(OBJECTS)
-	$(CC) -o $@  $(SOURCES) -lpthread 
+	$(CC) -o $@  $(OBJECTS) -lpthread 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
 clean :
