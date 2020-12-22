@@ -29,7 +29,7 @@ void* tRead(void* arg){
 	sleep(1);
 	while(1){
 		pthread_mutex_lock(&mtx);
-		printf("tid of reading thread = %lld data from writing thread = %s\n",pthread_self(),data);
+		printf("tid of reading thread = %lx data from writing thread = %s\n",(long)pthread_self(),data);
 		pthread_mutex_unlock(&mtx);
 		sleep(1);
 	}
