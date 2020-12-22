@@ -26,13 +26,12 @@ void* tWrite(void* arg){
 }
 
 void* tRead(void* arg){
-	sleep(0.5);
+	sleep(1);
 	while(1){
 		pthread_mutex_lock(&mtx);
-		printf("tid of reading thread = %ld data from writing thread = %s\n",pthread_self(),data);
-		sleep(0.5);
+		printf("tid of reading thread = %lld data from writing thread = %s\n",pthread_self(),data);
 		pthread_mutex_unlock(&mtx);
-		sleep(0.5);
+		sleep(1);
 	}
 }
 
