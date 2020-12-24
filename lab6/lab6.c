@@ -7,12 +7,14 @@
 #include<unistd.h>
 #include<time.h>
 
+#define NUM_OF_THREADS 11
+
 
 char buf[4];
 char* data;
 pthread_rwlock_t rwl;
 int counter = 0;
-pthread_t tid[11];
+pthread_t tid[NUM_OF_THREADS];
 
 void* tWrite(void* arg){
         while(1){
@@ -47,14 +49,14 @@ int main(int argc,char* argv[]){
                 perror("create");
                 exit(-1);
         }
-        for(int i = 1;i < 11;i++){
+        for(int i = 1;i < NUM_OF_THREADS;i++){
                 create = pthread_create(tid+i,NULL,tRead,NULL);
                 if(create != 0){
                         perror("create");
                         exit(-1);
 		                   }
         }
-        for(int i = 0;i < 11;i++){
+        for(int i = 0;i < NUM_OF_THREADS;i++){
                 pthread_join(tid[i],NULL);
         }
         pthread_rwlock_destroy(&rwl);
