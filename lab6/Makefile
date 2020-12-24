@@ -4,7 +4,7 @@ TARGET = l6
 SOURCES = lab6.c
 OBJECTS = $(SOURCES:.c=.o)
 
-all : 
+all : $(TARGET) 
 	./l6
 $(TARGET) : $(OBJECTS)
 	$(CC) -o $@  $(OBJECTS) -lpthread 
